@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="item">
+	<select id="getItemList" parameterType="auction.vo.ItemVO"
+		resultType="auction.vo.ItemVO">
+		SELECT i.a_no a_no,i.a_name a_name,i.a_top_price a_top_price,
+		i.a_bot_price a_bot_price,i.a_ddate a_ddate,u.u_name u_name 
+		FROM auction_item i INNER JOIN auction_users u ON u.U_NO=i.U_NO
+
+	</select>
+</mapper>
+
+	

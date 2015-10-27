@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="detail">
+	<select id="Select" parameterType="auction.vo.ItemVO"
+		resultType="auction.vo.ItemVO">
+		SELECT 
+	   a_name,   <!-- 도서명,최고가,최저가,종료날짜,시작날짜,이미지경로,내용,판매자아이디,경매번호 ,유저번호-->
+       a_top_price,
+       a_bot_price,
+       a_ddate,
+       a_date,
+       a_imgContext,
+       a_content,
+       u_id,
+       a_no,
+       auction_users.u_no,
+       auction_users.u_name,
+       bd_name  
+  FROM AUCTION_USERS
+       INNER JOIN AUCTION_ITEM ON (AUCTION_USERS.U_NO = AUCTION_ITEM.U_NO)
+       WHERE a_no=#{a_no}
+	</select>
+</mapper>
