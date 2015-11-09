@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auction.InsertItem.InsertItemDao">
+	<insert id="write" parameterType="auction.vo.ItemVO">
+	INSERT INTO auction_item( a_no, a_name, a_top_price, a_bot_price, a_content, a_imgContext, u_no
+                            )
+                VALUES(seq_item_num.nextval,#{a_name},#{a_top_price},#{a_bot_price}, #{a_content}, #{a_imgContext} ,#{u_no}
+                        )
+	</insert>
+	<delete id="delete" parameterType="int">
+	delete auction_item where a_no = #{a_no} 
+	</delete>
+	
+	
+</mapper>

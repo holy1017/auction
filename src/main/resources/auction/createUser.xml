@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="createUser">
+	<select id="UserSelect" parameterType="String" resultType="String">
+	 select u_name
+	 
+	 from auction_users
+	 
+	 where u_id = #{u_id}
+	
+	</select>
+	<select id="NickSelect" parameterType="String" resultType="String">
+	 select u_name
+	 
+	 from auction_users
+	 
+	 where u_nick = #{u_nick}
+	
+	</select>
+	
+	
+	<insert id="UserCreate" parameterType="auction.UserCreate.CreateUserVO">
+		insert into auction_users (u_id
+								  ,u_pw
+                           		  ,u_name
+                                  ,u_nick
+                                  ,u_lv
+                                  ,u_date
+                                  <!--  
+                           		   ,u_post
+                           		  ,u_email -->)
+          values(#{u_id}
+             	 ,#{u_pw}
+             	 ,#{u_name}
+             	 ,#{u_nick}
+             	 ,#{u_lv}
+             	 ,sysdate
+             	 <!--
+             	  ,#{u_post}
+             	 ,#{u_email} -->)	
+	</insert>
+</mapper>

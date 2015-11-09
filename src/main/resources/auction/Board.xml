@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+	<select
+		id="SelectList"
+		parameterType="common.Paging"
+		resultType="auction.vo.BoardVO">
+		<![CDATA[
+		SELECT B_NO,
+		B_TITLE,
+		B_CONTEXT,
+		U_NO,
+		B_DATE
+		FROM (SELECT ROWNUM AS RNUM, Z.*
+		FROM ( SELECT B_NO,
+		B_TITLE,
+		B_CONTEXT,
+		U_NO,
+		B_DATE
+		FROM AUCTION_BOARD
+		ORDER BY B_NO DESC) Z
+		WHERE ROWNUM <= (#{pageNo}*#{pageSize}))
+		WHERE RNUM > ((#{pageNo}-1)*#{pageSize})]]>
+	</select>
+	<select
+		id="SelectTotalCount"
+		resultType="int">
+		SELECT
+		COUNT (B_NO)
+		FROM AUCTION_BOARD
+	</select>
+	<insert
+		id="insertBoard"
+		parameterType="auction.vo.BoardVO">
+		INSERT INTO AUCTION_BOARD (b_no,
+		b_title,
+		b_context,
+		u_no)
+		VALUES (SEQ_BOARD_NUM.NEXTVAL,
+		#{b_title},
+		#{b_context},
+		#{u_no})
+	</insert>
+	<insert
+		id="boardInsert"
+		parameterType="auction.vo.BoardVO">
+		INSERT INTO AUCTION_BOARD (B_NO,
+		B_TITLE,
+		B_CONTEXT,
+		U_NO)
+		VALUES (SEQ_BOARD_NUM.NEXTVAL,
+		#{b_title},
+		#{b_context},
+		#{u_no})
+	</insert>
+</mapper>

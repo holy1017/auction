@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+
+	<bean id="auctionDB" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<!-- <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" /> -->
+<!-- 		<property name="url" value="jdbc:oracle:thin:@192.168.0.51:1521:orcl" />
+		<property name="username" value="project" />
+		<property name="password" value="1234" /> -->
+ 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="username" value="auction" />
+		<property name="password" value="auction" /> <!---->
+	</bean>
+
+	<!-- auctionDB 를 중간에 가로채서 로그 출력해줌 -->
+	<bean id="auctionSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="auctionDB" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<!-- <property name="sqlPrefix" value=""/> -->
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="auctionMapper" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="auctionSource" />
+		<property name="mapperLocations" value="classpath:/auction/**/*.xml" />
+	</bean>
+
+	<bean id="auctionSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="auctionMapper" />
+	</bean>
+
+</beans>
+
+
+
+
+
