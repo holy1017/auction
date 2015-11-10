@@ -3,14 +3,20 @@ package common;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import auction.InsertItem.UtilsFile;
 
 /**
  * Handles requests for the application home page.
@@ -50,4 +56,18 @@ public class commonController {
 		return "home";
 	}
 	
+	//@Resource(name = "commonService")
+	//private CommonService commonService;
+
+	@Resource(name = "UtilsFile")
+	private UtilsFile fileUtils;
+	
+	@RequestMapping(value = "upload/{file:.+}")
+	public void downloadFile(CommandMap commandMap, HttpServletResponse response,@PathVariable String file) throws Exception {
+		//Map<String, Object> map = commonService.selectFileInfo(commandMap.getMap());
+		//String storedFileName = (String) map.get("STORED_FILE_NAME");
+		//String originalFileName = (String) map.get("ORIGINAL_FILE_NAME");
+
+		fileUtils.readFile(response, file, file);
+	}
 }
