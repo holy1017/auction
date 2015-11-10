@@ -59,7 +59,7 @@
 		location="/scss/" />
 	<resources
 		mapping="/upload/**"
-		location="/uploadStorage/" />
+		location="D:/file/" />
 		
 		
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources

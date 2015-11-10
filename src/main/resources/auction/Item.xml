@@ -6,7 +6,7 @@
 		SELECT i.a_no a_no,i.a_name a_name,i.a_top_price a_top_price,
 		i.a_bot_price a_bot_price,i.a_ddate a_ddate,u.u_name u_name 
 		FROM auction_item i INNER JOIN auction_users u ON u.U_NO=i.U_NO
-
+order by i.a_no desc
 	</select>
 </mapper>
 

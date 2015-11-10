@@ -16,14 +16,14 @@ public class fileUploadUtil {
 		 
 		if (org_name != null && (!org_name.equals(""))) {
 			real_name = "board_" + System.currentTimeMillis() + "_" + org_name;
-			String docRoot = request.getSession().getServletContext().getRealPath("/uploadStorage");
-
+			//String docRoot = request.getSession().getServletContext().getRealPath("/uploadStorage");
+			String docRoot="d:/file";
 			File fileDir = new File(docRoot);
 			if (!fileDir.exists()) {
 				fileDir.mkdir();
 			}
 			File fileAdd = new File(docRoot + "/" + real_name);
-			logger.info("---------------------***docRoot : "+docRoot);
+			logger.info("docRoot : "+docRoot);
 			file.transferTo(fileAdd);
 		}
 		return real_name;
